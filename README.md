@@ -20,5 +20,5 @@ You can also test the weights we pre-trained by
 tar -xzvf logs.tar.gz
 python code/evaluate_Ntimes2.py --task acc_s --exp Task_acc_s_{labeled_ratios}p/{method} --cps AB
 ```
-
+The logs.tar.gz can be downloaded here: [logs.tar.gz](https://mega.nz/file/gv0TjCKT#IDJ4iLpX-Aru0-LbNcyWOLdegPHQJ5FOQxFZuqrQaGk)
 Have fun!
