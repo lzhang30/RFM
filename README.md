@@ -3,11 +3,18 @@ A description projection for our JSCAS proposed work
 
 **"Towards Better Semi-Supervised Multi-Organ Segmentation from CT Volumes: Random Frequency Masking and Pseudo-Label Refinement".**
 
-Run
+Run the code for data preprocessing:
+
 ```
 python code/data/preprocess_acc.py
 ```
-to prepare your dataset.
+
+Change the data path in 
+
+```
+code/utils/config.py
+```
+
 
 You need to modify the location where the data is stored before the preprocess.
 
