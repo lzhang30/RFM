@@ -1,5 +1,7 @@
 # RandFreqMask
-A description projection for our JSCAS proposed work "Towards Better Semi-Supervised Multi-Organ Segmentation from CT Volumes: Random Frequency Masking and Pseudo-Label Refinement".
+A description projection for our JSCAS proposed work 
+
+**"Towards Better Semi-Supervised Multi-Organ Segmentation from CT Volumes: Random Frequency Masking and Pseudo-Label Refinement".**
 
 Run
 ```
