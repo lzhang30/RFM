@@ -262,38 +262,29 @@ def process_data_torch(data,probability_of_zero, cut_range = (0.5,1)):
 
     processed_data = torch.zeros_like(data)
 
+
     for i in range(data.shape[0]):
         for j in range(data.shape[1]):
             fft_result = torch.fft.fftn(data[i, j], dim=(0, 1, 2))
-            #print(fft_result.shape)
+            
+            mask_complex = generate_3d_binary_mask(data.shape[2:],probability_of_zero).to(fft_result.device)
 
-            
-            mask_complex = generate_3d_binary_mask(data.shape[2:],probability_of_zero)
-            #try:
-            #    print(int(cut_range[0]*fft_result.shape[2]))
-            #except:
-            #print(cut_range[1]*fft_result.shape[0])
-            #print(int(cut_range[1]*fft_result.shape[0]))
-            
-            mask = torch.zeros_like(mask_complex)
-            print([int((0.5-cut_range[0]/2)*fft_result.shape[0]),int((0.5+cut_range[0]/2)*fft_result.shape[0])])
+            mask = torch.zeros_like(mask_complex).to(fft_result.device)
             
             mask[int((0.5-cut_range[0]/2)*fft_result.shape[0]):int((0.5+cut_range[0]/2)*fft_result.shape[0]),
                  int((0.5-cut_range[0]/2)*fft_result.shape[1]):int((0.5+cut_range[0]/2)*fft_result.shape[1]),
                 int((0.5-cut_range[0]/2)*fft_result.shape[2]):int((0.5+cut_range[0]/2)*fft_result.shape[2])] = 1
             
-            
-            mask2 = torch.zeros_like(mask_complex)
+            mask2 = torch.zeros_like(mask_complex).to(fft_result.device)
             mask2[int((0.5-cut_range[1]/2)*fft_result.shape[0]):int((0.5+cut_range[1]/2)*fft_result.shape[0]),
                  int((0.5-cut_range[1]/2)*fft_result.shape[1]):int((0.5+cut_range[1]/2)*fft_result.shape[1]),
                 int((0.5-cut_range[1]/2)*fft_result.shape[2]):int((0.5+cut_range[1]/2)*fft_result.shape[2])] =1
             
-            #final_mask = torch.zeros_like(mask_complex)
             final_mask = (mask != 1) & (mask2 == 1)
+
             final_mask = final_mask.int() * mask_complex
             mask = torch.ones_like(mask_complex)
             
-            #mask= 1-final_mask.int()
             mask = 1-mask*final_mask
             masked_fft = fft_result * mask
 
