@@ -417,9 +417,9 @@ if __name__ == '__main__':
 
             if args.mixed_precision:
                 with autocast():
-                    
-                    image_A = process_data_torch(image,0.2,cut_range=(0,0.2))
-                    image_B = process_data_torch(image,0.2,cut_range=(0.8,1))
+                    if random.randn() <0.1:
+                        image_A = process_data_torch(image,0.2,cut_range=(0,0.2))
+                        image_B = process_data_torch(image,0.2,cut_range=(0.8,1))
                     output_A = model_A(image_A)
                     output_B = model_B(image_B)
                     del image
